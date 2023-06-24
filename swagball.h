@@ -24,6 +24,7 @@ private:
 
   void initShape(sf::RenderWindow *target);
 public:
+    static BallType randomizeType();
     explicit SwagBall(sf::RenderWindow *target, BallType type);
     virtual ~SwagBall();
     //Getters

@@ -77,6 +77,13 @@ build CMakeFiles/PickupBalls.dir/swagball.cpp.o: CXX_COMPILER__PickupBalls_Debug
   OBJECT_DIR = CMakeFiles/PickupBalls.dir
   OBJECT_FILE_DIR = CMakeFiles/PickupBalls.dir
 
+build CMakeFiles/PickupBalls.dir/hpbar.cpp.o: CXX_COMPILER__PickupBalls_Debug /Volumes/External/Nextcloud/Programming/SFML/PickupGame/hpbar.cpp || cmake_object_order_depends_target_PickupBalls
+  DEP_FILE = CMakeFiles/PickupBalls.dir/hpbar.cpp.o.d
+  FLAGS = -std=c++20 -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics
+  INCLUDES = -I/usr/local/include -isystem /opt/homebrew/include
+  OBJECT_DIR = CMakeFiles/PickupBalls.dir
+  OBJECT_FILE_DIR = CMakeFiles/PickupBalls.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target PickupBalls
@@ -85,7 +92,7 @@ build CMakeFiles/PickupBalls.dir/swagball.cpp.o: CXX_COMPILER__PickupBalls_Debug
 #############################################
 # Link the executable PickupBalls
 
-build PickupBalls: CXX_EXECUTABLE_LINKER__PickupBalls_Debug CMakeFiles/PickupBalls.dir/main.cpp.o CMakeFiles/PickupBalls.dir/game.cpp.o CMakeFiles/PickupBalls.dir/player.cpp.o CMakeFiles/PickupBalls.dir/swagball.cpp.o | /opt/homebrew/lib/libsfml-graphics.2.5.1.dylib /opt/homebrew/lib/libsfml-audio.2.5.1.dylib /opt/homebrew/lib/libsfml-network.2.5.1.dylib /opt/homebrew/lib/libsfml-window.2.5.1.dylib /opt/homebrew/lib/libsfml-system.2.5.1.dylib
+build PickupBalls: CXX_EXECUTABLE_LINKER__PickupBalls_Debug CMakeFiles/PickupBalls.dir/main.cpp.o CMakeFiles/PickupBalls.dir/game.cpp.o CMakeFiles/PickupBalls.dir/player.cpp.o CMakeFiles/PickupBalls.dir/swagball.cpp.o CMakeFiles/PickupBalls.dir/hpbar.cpp.o | /opt/homebrew/lib/libsfml-graphics.2.5.1.dylib /opt/homebrew/lib/libsfml-audio.2.5.1.dylib /opt/homebrew/lib/libsfml-network.2.5.1.dylib /opt/homebrew/lib/libsfml-window.2.5.1.dylib /opt/homebrew/lib/libsfml-system.2.5.1.dylib
   FLAGS = -std=c++20 -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
   LINK_LIBRARIES = -Wl,-rpath,/opt/homebrew/lib  /opt/homebrew/lib/libsfml-graphics.2.5.1.dylib  /opt/homebrew/lib/libsfml-audio.2.5.1.dylib  /opt/homebrew/lib/libsfml-network.2.5.1.dylib  /opt/homebrew/lib/libsfml-window.2.5.1.dylib  /opt/homebrew/lib/libsfml-system.2.5.1.dylib
   OBJECT_DIR = CMakeFiles/PickupBalls.dir

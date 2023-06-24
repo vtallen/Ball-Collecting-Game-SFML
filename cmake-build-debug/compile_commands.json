@@ -18,5 +18,10 @@
   "directory": "/Volumes/External/Nextcloud/Programming/SFML/PickupGame/cmake-build-debug",
   "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -I/usr/local/include -isystem /opt/homebrew/include  -std=c++20 -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -o CMakeFiles/PickupBalls.dir/swagball.cpp.o -c /Volumes/External/Nextcloud/Programming/SFML/PickupGame/swagball.cpp",
   "file": "/Volumes/External/Nextcloud/Programming/SFML/PickupGame/swagball.cpp"
+},
+{
+  "directory": "/Volumes/External/Nextcloud/Programming/SFML/PickupGame/cmake-build-debug",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -I/usr/local/include -isystem /opt/homebrew/include  -std=c++20 -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -o CMakeFiles/PickupBalls.dir/hpbar.cpp.o -c /Volumes/External/Nextcloud/Programming/SFML/PickupGame/hpbar.cpp",
+  "file": "/Volumes/External/Nextcloud/Programming/SFML/PickupGame/hpbar.cpp"
 }
 ]

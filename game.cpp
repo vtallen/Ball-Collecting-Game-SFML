@@ -4,6 +4,7 @@
 Game::Game(int width, int height) : m_windowWidth{width}, m_windowHeight{height} {
   initVars();
   initWindow();
+  m_endGameText.setPosition(sf::Vector2f((m_window->getSize().x / 2) - m_endGameText.getGlobalBounds().width / 2, 50));
 }
 
 Game::~Game() {
@@ -18,18 +19,24 @@ void Game::initVars() {
   m_maxSwagBalls = 15;
 
   m_font.loadFromFile("../Minecraft.ttf");
+
   m_pointsText.setFont(m_font);
   m_pointsText.setFillColor(sf::Color::White);
   m_pointsText.setPosition(sf::Vector2f(10, 10));
 
-  m_pointsText.setString("Points: " + std::to_string(m_player.getPoints()));
+  m_endGameText.setFont(m_font);
+  m_endGameText.setFillColor(sf::Color::Red);
+
+  m_endGameText.setString("GAME OVER! Press \"R\" to restart.");
 }
 
 void Game::initWindow() {
   m_videoMode.width = m_windowWidth;
   m_videoMode.height = m_windowHeight;
-  m_window = new sf::RenderWindow{m_videoMode, "Pickup Balls", sf::Style::Titlebar | sf::Style::Close };
+  m_window = new sf::RenderWindow{m_videoMode, "Pickup Balls", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize};
   m_window->setFramerateLimit(60);
+
+  m_hpBar.setup(10.f, m_window->getSize().y - 50, 400, 40, m_player.getMaxHp());
 }
 
 // Getters
@@ -37,35 +44,49 @@ bool Game::isRunning() const {
   return m_window->isOpen();
 }
 
+bool Game::isEndGame() const {
+  return m_player.getHp() <= 0;
+}
 // Public functions
 void Game::update() {
   pollEvents();
   updateMousePos();
-  updateCollision();
-  spawnSwagBalls();
-  m_player.update(m_window);
+  if (!isEndGame()) {
+    updateCollision();
+    spawnSwagBalls();
+    m_player.update(m_window);
+  }
   updateGUI();
 }
 
 void Game::updateGUI() {
-  m_pointsText.setString("Points: " + std::to_string(m_player.getPoints()) + " Health: " + std::to_string(m_player.getHp()));
+  m_pointsText.setString("Points: " + std::to_string(m_player.getPoints()));
+  m_hpBar.update(m_window, m_player.getHp());
+}
+
+void Game::renderGUI() {
+
+  if (isEndGame()) m_window->draw(m_endGameText);
+  else {
+    m_window->draw(m_pointsText);
+    m_hpBar.render(m_window);
+  }
 }
 
 void Game::render() {
   m_window->clear();
 
-  // Draw the game
-  m_player.render(m_window);
-  for (auto i : m_balls) {
-    i.render(m_window);
+  if (!isEndGame()) {
+    // Draw the game
+    m_player.render(m_window);
+    for (auto i: m_balls) {
+      i.render(m_window);
+    }
   }
   renderGUI();
   m_window->display();
 }
 
-void Game::renderGUI() {
-  m_window->draw(m_pointsText);
-}
 
 void Game::pollEvents() {
   while (m_window->pollEvent(m_ev)) {
@@ -74,6 +95,10 @@ void Game::pollEvents() {
         m_window->close();
         break;
       case sf::Event::KeyPressed:
+        if (m_ev.key.code == sf::Keyboard::R && isEndGame()) {
+          m_player.gainHealth(m_player.getMaxHp());
+          m_balls.erase(m_balls.begin(), m_balls.end());
+        }
         break;
     }
   }
@@ -111,7 +136,7 @@ void Game::spawnSwagBalls() {
   if (m_spawnTimer < m_spawnTimerMax) m_spawnTimer += 1.f;
   else {
     if (m_balls.size() < m_maxSwagBalls) {
-      m_balls.push_back(SwagBall{m_window, static_cast<SwagBall::BallType>(rand()%SwagBall::BallType::MAX_TYPES)});
+      m_balls.push_back(SwagBall{m_window, SwagBall::randomizeType()});
       m_spawnTimer = 0.f;
 
     }

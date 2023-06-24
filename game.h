@@ -6,12 +6,14 @@
 
 #include "player.h"
 #include "swagball.h"
+#include "hpbar.h"
 
 class Game {
 private:
     // Window
     int m_windowWidth{};
     int m_windowHeight{};
+
     sf::RenderWindow *m_window;
     sf::VideoMode m_videoMode;
     sf::Event m_ev;
@@ -23,6 +25,7 @@ private:
     // Game logic
     bool m_gameRunning{};
     Player m_player{};
+    HpBar m_hpBar{};
     std::vector<SwagBall> m_balls;
     float m_spawnTimerMax{};
     float m_spawnTimer{};
@@ -31,6 +34,7 @@ private:
     // Resources
     sf::Font m_font{};
     sf::Text m_pointsText{};
+    sf::Text m_endGameText{};
 
     // Private functions
     void initVars();
@@ -43,7 +47,7 @@ public:
 
     // Getters
     bool isRunning() const;
-
+    bool isEndGame() const;
     // Functions
     void update();
     void updateGUI();

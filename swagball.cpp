@@ -49,3 +49,11 @@ sf::CircleShape SwagBall::getShape() {
 SwagBall::BallType SwagBall::getType() const {
   return m_type;
 }
+
+SwagBall::BallType SwagBall::randomizeType() {
+  BallType type{BallType::DEFAULT};
+  int randVal{rand()%101};
+  if (randVal > 60 && randVal < 80) type = BallType::DAMAGING;
+  else if (randVal > 80 && randVal <= 100) type = BallType::HEALING;
+  return type;
+}
