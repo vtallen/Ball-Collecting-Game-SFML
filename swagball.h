@@ -24,7 +24,7 @@ private:
 
   void initShape(sf::RenderWindow *target);
 public:
-    SwagBall(sf::RenderWindow *target, BallType type);
+    explicit SwagBall(sf::RenderWindow *target, BallType type);
     virtual ~SwagBall();
     //Getters
     sf::CircleShape getShape();

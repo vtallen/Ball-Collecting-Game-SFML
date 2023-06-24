@@ -53,11 +53,17 @@ void Player::addPoints(int num) {
 
 // Setters
 void Player::takeDamage(const int amt) {
-  m_hp -= amt;
+  if (m_hp > 0) {
+    m_hp -= amt;
+  }
+
+  if (m_hp < 0) m_hp = 0;
 }
 
 void Player::gainHealth(const int amt) {
-  m_hp += amt;
+  if (m_hp < m_hpMax) m_hp += amt;
+
+  if (m_hp > m_hpMax) m_hp = m_hpMax;
 }
 
 // Private functions

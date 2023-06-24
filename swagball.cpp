@@ -14,7 +14,22 @@ SwagBall::~SwagBall() {
 
 void SwagBall::initShape(sf::RenderWindow *target) {
   m_shape.setRadius(static_cast<float>(rand()%10 + 10));
-  sf::Color color(rand()%255 + 1, rand()%255 + 1, rand()%255 + 1);
+  sf::Color color;
+  switch (m_type) {
+    case DEFAULT:
+      color = sf::Color(rand() % 255 + 1, rand() % 255 + 1, rand() % 255 + 1);
+      break;
+    case DAMAGING:
+      color = sf::Color::Red;
+      break;
+    case HEALING:
+      color = sf::Color::Green;
+      break;
+    case MAX_TYPES:
+      std::cerr << "SwagBall::initShape() - MAX_TYPES hit\n";
+      color = sf::Color::Yellow;
+      break;
+  }
   m_shape.setFillColor(color);
 
   m_shape.setPosition(rand()%target->getSize().x - m_shape.getGlobalBounds().width, rand()%target->getSize().y - m_shape.getGlobalBounds().height);

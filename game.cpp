@@ -13,9 +13,9 @@ Game::~Game() {
 // Private Functions
 void Game::initVars() {
   m_gameRunning = true;
-  m_spawnTimerMax = 0.f;
+  m_spawnTimerMax = 10.f;
   m_spawnTimer = m_spawnTimerMax;
-  m_maxSwagBalls = 100000;
+  m_maxSwagBalls = 15;
 
   m_font.loadFromFile("../Minecraft.ttf");
   m_pointsText.setFont(m_font);
@@ -48,7 +48,7 @@ void Game::update() {
 }
 
 void Game::updateGUI() {
-  m_pointsText.setString("Points: " + std::to_string(m_player.getPoints()));
+  m_pointsText.setString("Points: " + std::to_string(m_player.getPoints()) + " Health: " + std::to_string(m_player.getHp()));
 }
 
 void Game::render() {
@@ -88,8 +88,21 @@ void Game::updateCollision() {
   // Check the collision
   for (size_t i{0}; i < m_balls.size(); ++i) {
     if (m_player.getShape().getGlobalBounds().intersects(m_balls[i].getShape().getGlobalBounds())) {
+      SwagBall::BallType type{m_balls[i].getType()};
+      switch (type) {
+        case SwagBall::DEFAULT:
+          m_player.addPoints(1);
+          break;
+        case SwagBall::HEALING:
+          m_player.gainHealth(1);
+          break;
+        case SwagBall::DAMAGING:
+          m_player.takeDamage(1);
+          break;
+        default:
+          std::cerr << "Error, ball type does not exist\n";
+      }
       m_balls.erase(m_balls.begin() + i);
-      m_player.addPoints(1);
     }
   }
 }
@@ -98,7 +111,7 @@ void Game::spawnSwagBalls() {
   if (m_spawnTimer < m_spawnTimerMax) m_spawnTimer += 1.f;
   else {
     if (m_balls.size() < m_maxSwagBalls) {
-      m_balls.push_back(SwagBall{m_window, rand()%SwagBall::BallType::MAX_TYPES});
+      m_balls.push_back(SwagBall{m_window, static_cast<SwagBall::BallType>(rand()%SwagBall::BallType::MAX_TYPES)});
       m_spawnTimer = 0.f;
 
     }
